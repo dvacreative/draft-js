@@ -1,17 +1,3 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates. All rights reserved.
- *
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only. Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 'use strict';
 
 import Draft from 'draft-js';
@@ -19,6 +5,7 @@ import {Map} from 'immutable';
 import React from 'react';
 
 import TeXBlock from './TeXBlock';
+import TitleBlock from './TitleBlock'
 import {content} from '../data/content';
 import {insertTeXBlock} from '../modifiers/insertTeXBlock';
 import {removeTeXBlock} from '../modifiers/removeTeXBlock';
@@ -34,6 +21,15 @@ export default class TeXEditorExample extends React.Component {
     };
 
     this._blockRenderer = (block) => {
+      if (block.getType() === 'title'){
+        return {
+          component: TitleBlock,
+          editable: true,
+          props: {
+
+          }
+        }
+      }
       if (block.getType() === 'atomic') {
         return {
           component: TeXBlock,
